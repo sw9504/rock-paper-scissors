@@ -1,11 +1,12 @@
 function computerPlays (){
-    let cpuPlay = ["Rock","Paper","Scissors"];
+    let cpuPlay = ["Rock","Paper","Scissor"];
     return cpuPlay[Math.floor(Math.random() * 3)];
 }
 
 function playRound(playerSelection,computerSelection){
 
-    playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
+    playerSelection =   playerSelection.charAt(0).toUpperCase() 
+                        + playerSelection.slice(1);
 
     if (playerSelection === computerSelection){
         console.log("There's a DRAW!!!!");
@@ -38,12 +39,15 @@ function playRound(playerSelection,computerSelection){
 }
 
 function game (){
-    for(let i=1;i<=5;i++){
-        console.log(`Game N°${i}`);
-        playRound(prompt("Choose Rock, Paper or Scissor."),computerPlays());
-    }
+    const buttons = document.querySelectorAll('button');
 
-    return 0;
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            console.log(button.id)
+            playRound(button.id,computerPlays());
+        });
+        
+    });
 }
 
 game();

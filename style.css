@@ -1,0 +1,19 @@
+body {
+    background-color: navy;
+    color: blueviolet;
+}
+
+button {
+    border: 2px;
+    text-align: center;
+    font-size: 16px;
+    margin: 10px;
+    padding: 20px;
+}
+
+#buttons {
+    display: flex;
+    flex: 1 1 0;
+    justify-content: center;
+    justify-items: center;
+}
