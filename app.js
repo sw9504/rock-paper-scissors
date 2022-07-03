@@ -1,6 +1,21 @@
+var cpu = 0, human = 0, draw = 0;
+
 function computerPlays (){
     let cpuPlay = ["Rock","Paper","Scissor"];
     return cpuPlay[Math.floor(Math.random() * 3)];
+}
+
+function wins (selector,winner){
+    document.getElementById(selector).innerHTML = `${selector}: ${winner}`;
+}
+function reset () {
+    human = 0;
+    cpu = 0;
+    draw = 0;
+
+    wins("Human",human);
+    wins("CPU",cpu);
+    wins("Draws",draw);
 }
 
 function playRound(playerSelection,computerSelection){
@@ -10,27 +25,41 @@ function playRound(playerSelection,computerSelection){
 
     if (playerSelection === computerSelection){
         console.log("There's a DRAW!!!!");
+        wins("Draws",++draw);
         return;
     }
 
     switch(playerSelection){
         case "Rock":
-            if (computerSelection === "Paper")
+            if (computerSelection === "Paper"){
                 console.log("You lose. CPU chooses Paper");
-            else
+                wins("CPU",++cpu);
+            }
+            else{
                 console.log("You Win. CPU chooses Scissor");
+                wins("Human",++human);
+            }
         break;
         case "Paper":
             if (computerSelection === "Scissor")
-            console.log("You lose. CPU chooses Scissor");
-        else
+            {
+                wins("CPU",++cpu);
+                console.log("You lose. CPU chooses Scissor");
+            }
+        else{
             console.log("You Win. CPU chooses Rock");
+            wins("Human",++human);
+        }
         break;
         case "Scissor":
-            if (computerSelection === "Rock")
-            console.log("You lose. CPU chooses Rock");
-        else
+            if (computerSelection === "Rock"){
+                console.log("You lose. CPU chooses Rock");
+                wins("CPU",++cpu);
+            }
+        else{
             console.log("You Win. CPU chooses Paper");
+            wins("Human",++human);
+        }
         break;
         default:
             console.log("You must choose Rock, Paper or Scissor");
@@ -41,9 +70,18 @@ function playRound(playerSelection,computerSelection){
 function game (){
     const buttons = document.querySelectorAll('button');
 
+
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
-            console.log(button.id)
+            if(human === 5){
+                console.log("Human wins!");
+                reset();
+            }
+        
+            if (cpu === 5){
+                console.log("CPU wins!");
+                reset();
+            }
             playRound(button.id,computerPlays());
         });
         
